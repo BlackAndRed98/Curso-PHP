@@ -58,11 +58,12 @@
 
      form{
         border-style: ridge;
-        display: grid;
+       
         
-        height: 20vh;
-        display: flex;
+        height: 30vh;
+        display: grid;
         justify-content: center;
+        justify-items: center;
         color: aliceblue;
         flex-direction: row;
         flex-wrap: wrap;
@@ -85,12 +86,24 @@
         font-size: 18px;
         color: red;
         font-weight: bold;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        border-style: ridge;
+        border-color: red;
+        
+
+
       }
 
       .validado{
-        font-size: 18px;
+        font-size: 20px;
         color: green;
         font-weight: bold;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        position: relative;
+        border-style: ridge;
+        border-color: green;
+        
+
       }
 
       
@@ -339,14 +352,16 @@
 
         <p>&nbsp;</p>
         
-        <form name="form1" method="post" action="">
+        <form name="form1" method="post" action="" style="height: 50vh;">
           <p>Creamos un formulario tipo calculadora</p>
           <p>
-            <label for="num1"></label>
+            <label for="num1">Introduzca un valor --></label>
             <input type="text" name="num1" id="num1">
-            <label for="num2"></label>
+            <label for="num2">Introduzca un valor --></label>
             <input type="text" name="num2" id="num2">
-            <label for="operacion"></label>
+            <br>
+            <br>
+            <label for="operacion">Eligue la operacion</label>
             <select name="operacion" id="operacion" class="boton">
               <option>Suma</option>
               <option>Resta</option>
@@ -356,13 +371,62 @@
             </select>
           </p>
           <p>
-            <input type="submit" name="button" class="boton" value="Enviar" onclick="prueba">
+            <input type="submit" name="button" id="button" class="boton" value="Enviar" onclick="prueba">
           </p>
         </form>
         <p>&nbsp;</p>
         <!--FIN DEL FORMULARIO COMIENZA NUESTRO CODIGO PHP -->
-        <?php 
-         
+
+
+        <!-- 1. Agregamos una condicion IF con un ISSET que toma las acciones del usuario .
+
+          -- 2. Agregamos una funcion SUPERGLOBAL { $_POST[] } que funciona para coger los ID's de nuestro codigo HTML en el que
+                hemos creado el formulario
+
+          -- 3. Dentro de los [] debe ir el ID rodeado de comillas dobles ". ["button1"] linea de ejemplo:396--
+
+          -- 4. Despues declararemos las 3 variables [$numero1 con ID "num1", $numero2 con ID "num2" , $operacion ID "operacion"] 
+          -- 5. Agregamos otro IF dentro de el primero que ya tiene la funcion ISSET 
+          -- 6. !strcmp == string compare para que compare los strings con lo que el usuario haya escogido $operacion
+             y asi poder hacer la operacion
+          -- 7. Ahora solo queda agregar las variables $NUMEROS con el simbolo de operacion correspondientes en varios IF
+        Y ya tendriamos nuestra calculadora para hacer operaciones.-->
+          
+        <?php
+        if (isset($_POST["button"])) {
+
+          $numero1 = $_POST["num1"];
+          $numero2 = $_POST["num2"];
+          $operacion = $_POST["operacion"];
+
+          if (!strcmp("Suma", $operacion)) {
+
+            echo "<h3>El resultado es: </h3>" . ($numero1 + $numero2);
+
+          }
+          if (!strcmp("Resta", $operacion)) {
+
+            echo "<h3>El resultado es: </h3>" . ($numero1 - $numero2);
+
+          }
+          if (!strcmp("Multiplicacion", $operacion)) {
+
+            echo "<h3>El resultado es: </h3>" . ($numero1 * $numero2);
+
+          }
+          if (!strcmp("Division", $operacion)) {
+
+            echo "<h3>El resultado es: </h3>" . ($numero1 / $numero2);
+
+          }
+          if (!strcmp("Modulo", $operacion)) {
+
+            echo "<h3>El resultado es: </h3>" . ($numero1 % $numero2);
+
+          }
+
+
+        }
          
          
          ?>
